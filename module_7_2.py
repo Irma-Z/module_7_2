@@ -10,14 +10,17 @@ info = [
 ]
 
 def custom_write(file_name, strings):
-    strings_positions = {}
-    with open(file_name, 'w', encoding='utf-8') as file:
-        for line_number, string in enumerate(strings, start=1):
-            start_byte = file.tell()
-            file.write(string + '\n')
-            strings_positions[(line_number, start_byte)] = string
-    return strings_positions
+    n = 0
+    elem = {}
+    for i in info:
+        file = open(file_name, 'a', encoding='utf-8')
+        tell = (file.tell())
+        n += 1
+        file.write(f'{i}\n')
+        file.close()
+        elem.update({(n, tell): i})
+    return elem
 
 result = custom_write('test.txt', info)
-for i in result.items():
-  print(i)
+for elem in result.items():
+  print(elem)
